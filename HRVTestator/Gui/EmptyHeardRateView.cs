@@ -1,7 +1,7 @@
 using Android.Content;
 using Android.Graphics;
 
-namespace HRVTestator.Views
+namespace HRVTestator.Gui
 {
     public class EmptyHeartRateView : AbstractHeartRateView
     {

@@ -58,20 +58,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysisPlanner.cs" />
+    <Compile Include="ActivityWithMenu.cs" />
+    <Compile Include="AnalysisPlaner.cs" />
     <Compile Include="BluetoothGattCharacteristic.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="HeartRateReceiver.cs" />
+    <Compile Include="HRV.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Measurement.cs" />
     <Compile Include="Metronom.cs" />
-    <Compile Include="PhonecallReceiver.cs" />
-    <Compile Include="PolarH7Service.cs" />
+    <Compile Include="PolarH7Device.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceTools.cs" />
     <Compile Include="Views\AbstractHeardRateView.cs" />
-    <Compile Include="Views\CircleHeardRateView.cs" />
     <Compile Include="Views\EmptyHeardRateView.cs" />
+    <Compile Include="Views\IInvalidatable.cs" />
     <Compile Include="Views\LineHeardRateView.cs" />
   </ItemGroup>
   <ItemGroup>

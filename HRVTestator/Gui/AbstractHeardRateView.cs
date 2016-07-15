@@ -3,26 +3,18 @@ using Android.Views;
 using Android.Graphics;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System;
 
-namespace HRVTestator.Views
+namespace HRVTestator.Gui
 {
-    public abstract class AbstractHeartRateView : View
+    public abstract class AbstractHeartRateView : View, IInvalidatable
     {
-        protected Paint paint;
         private List<float> mesuredHeartRate = new List<float>();
         private List<int> stackOfNewValues = new List<int>();
-        private enum trendOfMetronom { growing, shrinking }
-        private trendOfMetronom actualTrendOfMetronom;
-        private int lastRadiusOfMetronomCircle;
-        private bool hasMetronomStarted = false;
-        //int radius;
-        //Canvas canvas;
+        private Metronom metronom;
 
         public AbstractHeartRateView(Context context) : base(context)
         {
-            paint = new Paint();
+            metronom = new Metronom(this);
         }
 
         protected override void OnDraw(Canvas canvas)
@@ -33,61 +25,14 @@ namespace HRVTestator.Views
 
             Rect rect = new Rect();
             base.GetDrawingRect(rect);
-
-            if (!hasMetronomStarted)
-            {
-                StartMetronom();
-                hasMetronomStarted = true;
-            }
-
-            paint.Color = Color.Beige;
-            canvas.DrawCircle(rect.Width() / 2, rect.Height() / 2, CalculateRadiusOFMetronom(lastRadiusOfMetronomCircle), paint);
-            base.OnDraw(canvas);
+            metronom.OnDraw(canvas, rect);
+            base.OnDraw(canvas); // ????
         }
 
-        private void StartMetronom()
-        {
-            Metronom metronom = new Metronom();
-            //Create the delegate that invokes methods for the timer.
-            TimerCallback timerDelegate = new TimerCallback(Refresh);
-            //Create a timer that waits one second, then invokes every second.
-            Timer timer = new Timer(timerDelegate, metronom, 0, 35);//15 // x/1000*5*60000 = 4.28*2*700 --> x = 20
-
-            //Keep a handle to the timer, so it can be disposed.
-            metronom.tmr = timer;
-        }
-
-        private void Refresh(Object state)
+        public void Invalidate()
         {
             PostInvalidate();
         }
-
-        private int CalculateRadiusOFMetronom(int radius)
-        {
-            int newRadiusOFMetronomCircle;
-            if (actualTrendOfMetronom == trendOfMetronom.growing)
-            {
-                newRadiusOFMetronomCircle = lastRadiusOfMetronomCircle + 5; // 5
-            }
-            else
-            {
-                newRadiusOFMetronomCircle = lastRadiusOfMetronomCircle - 5; //-5
-            }
-
-            if (lastRadiusOfMetronomCircle >= 715) //143)//715
-            {
-                actualTrendOfMetronom = trendOfMetronom.shrinking;
-            }
-
-            if (lastRadiusOfMetronomCircle <= 0)
-            {
-                actualTrendOfMetronom = trendOfMetronom.growing;
-            }
-
-            lastRadiusOfMetronomCircle = newRadiusOFMetronomCircle;
-            return newRadiusOFMetronomCircle;
-        }
-
 
         private void DrawBackground(Canvas canvas)
         {
@@ -99,6 +44,7 @@ namespace HRVTestator.Views
 
         private void DrawBmsText(Canvas canvas)
         {
+            Paint paint = new Paint();
             if (!HasSomeHeartRateValue())
             {
                 return;
@@ -146,10 +92,7 @@ namespace HRVTestator.Views
 
         public void ClearHeartRateView()
         {
-            if(mesuredHeartRate.Count > 15)
-            {
-                mesuredHeartRate.RemoveRange(0, mesuredHeartRate.Count - 15);
-            }
+            mesuredHeartRate.Clear();
         }
 
         public bool IsFirstMesuredHeartRate()

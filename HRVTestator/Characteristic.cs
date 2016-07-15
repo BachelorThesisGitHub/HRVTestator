@@ -2,44 +2,97 @@ using System;
 
 namespace HRVTestator
 {
-    public class BluetoothGattCharacteristic
+    public class Characteristic
     {
+        public int[] ExtractRRInterval(byte[] data) //BluetoothGattCharacteristic characteristic)
+        {
+            this.SetValue(data);
+            int flag = this.GetIntValue(FORMAT_UINT8, 0);
+            int format = -1;
+            int energy = -1;
+            int offset = 1; // This depends on hear rate value format and if there is energy data
+            int rr_count = 0;
+
+            if ((flag & 0x01) != 0)
+            {
+                format = FORMAT_UINT16;
+                Console.Out.WriteLine("Heart rate format UINT16.");
+                offset = 3;
+            }
+            else
+            {
+                format = FORMAT_UINT8;
+                Console.Out.WriteLine("Heart rate format UINT8.");
+                offset = 2;
+            }
+            if ((flag & 0x08) != 0)
+            {
+                // calories present
+                energy = GetIntValue(FORMAT_UINT16, offset);
+                offset += 2;
+                Console.Out.WriteLine("Received energy: {}" + energy);
+            }
+            if ((flag & 0x16) != 0)
+            {
+                // RR stuff
+                Console.Out.WriteLine("RR stuff found at offset: " + offset);
+                Console.Out.WriteLine("RR length: " + (GetValue()).Length);
+                rr_count = ((GetValue()).Length - offset) / 2;
+                Console.Out.WriteLine("RR length: " + (GetValue()).Length);
+                Console.Out.WriteLine("rr_count: " + rr_count);
+                if (rr_count > 0)
+                {
+                    int[] mRr_values = new int[rr_count];
+                    for (int i = 0; i < rr_count; i++)
+                    {
+                        mRr_values[i] = GetIntValue(
+                                Characteristic.FORMAT_UINT16, offset);
+                        offset += 2;
+                        Console.Out.WriteLine("Received RR: " + mRr_values[i]);
+                    }
+                    return mRr_values;
+                }
+            }
+
+            Console.Out.WriteLine("No RR data on this update: ");
+            return null;
+        }
+
         /**
          * Characteristic value format type uint8
          */
-        public const int FORMAT_UINT8 = 0x11;
+        private const int FORMAT_UINT8 = 0x11;
 
         /**
          * Characteristic value format type uint16
          */
-        public const int FORMAT_UINT16 = 0x12;
+        private const int FORMAT_UINT16 = 0x12;
 
         /**
          * Characteristic value format type uint32
          */
-        public const int FORMAT_UINT32 = 0x14;
+        private const int FORMAT_UINT32 = 0x14;
 
         /**
          * Characteristic value format type sint8
          */
-        public const int FORMAT_SINT8 = 0x21;
+        private const int FORMAT_SINT8 = 0x21;
 
         /**
          * Characteristic value format type sint16
          */
-        public const int FORMAT_SINT16 = 0x22;
+        private const int FORMAT_SINT16 = 0x22;
 
         /**
          * Characteristic value format type sint32
          */
-        public const int FORMAT_SINT32 = 0x24;
+        private const int FORMAT_SINT32 = 0x24;
 
         /**
          * The cached value of this characteristic.
          * @hide
          */
-        protected byte[] mValue;
-
+        private byte[] mValue;
 
         /**
          * Get the stored value for this characteristic.
@@ -51,7 +104,7 @@ namespace HRVTestator
          *
          * @return Cached value of the characteristic
          */
-        public byte[] GetValue()
+        private byte[] GetValue()
         {
             return mValue;
         }
@@ -71,7 +124,7 @@ namespace HRVTestator
          * @return Cached value of the characteristic or null of offset exceeds
          *         value size.
          */
-        public int GetIntValue(int formatType, int offset)
+        private int GetIntValue(int formatType, int offset)
         {
             if ((offset + GetTypeLen(formatType)) > mValue.Length) return 999; //vorher: Null
 
@@ -101,12 +154,11 @@ namespace HRVTestator
             return 999; //vorher: Null
         }
 
-        public bool SetValue(byte[] value)
+        private bool SetValue(byte[] value)
         {
             mValue = value;
             return true;
         }
-
 
         /**
          * Returns the size of a give value type.
@@ -151,8 +203,6 @@ namespace HRVTestator
             int exponent = UnsignedToSigned(UnsignedByteToInt(b1) >> 4, 4);
             return (float)(mantissa * Math.Pow(10, exponent));
         }
-
-
 
         /**
          * Convert an unsigned integer value to a two's-complement encoded

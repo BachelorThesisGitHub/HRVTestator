@@ -13,8 +13,6 @@ namespace HRVTestator.Views
         private const float pointSize = 20;
         private List<Point> points = new List<Point>();
         private const float scaleFactor = 10;
-        private int countOfValuesInStock = -1;
-        private bool isFirstDraw = true;
         public bool showLine = false;
 
         public LineHeartRateView(Context context) : base(context) { }
@@ -24,40 +22,20 @@ namespace HRVTestator.Views
             base.OnDraw(canvas);
             DrawLine(canvas);
         }
-
-        
+                
         private void DrawLine(Canvas canvas)
         {
-            if(!showLine)
-            {
-                ClearHeartRateView();
-                points.Clear();
-                return;
-            }
-
-            if(isFirstDraw) //Verhindert, dass nach dem Phasenwechsel bereits frühere Werte dargestellt werden.
-            {
-                countOfValuesInStock = CountOfValuesInStock();
-                isFirstDraw = false;
-            }
-            if(countOfValuesInStock >= 0)
-            {
-                countOfValuesInStock--;
-                ConsumedNewHRVValue();
-                return;
-            }
-
             Rect rect = new Rect();
             base.GetDrawingRect(rect);
+            Paint paint = new Paint();
             paint.Color = Color.Coral;
 
             if (HasSomeHeartRateValue()) //Wurden überhaupt schon Werte übermittelt?
             {
-                
 
                 if (points.Count == 0)
                 {
-                    ClearHeartRateView(); // Bereits erfasste Punkte sollen nicht dargestellt werden- 
+                    //ClearHeartRateView(); // Bereits erfasste Punkte sollen nicht dargestellt werden- 
                     points.Add(GetStartPoint());
                 }
 
@@ -83,10 +61,10 @@ namespace HRVTestator.Views
             }
         }
 
-        public void ClearPoints()
-        {
-            points.Clear();
-        }
+        //public void ClearPoints()
+        //{
+        //    points.Clear();
+        //}
 
         private float GetDifferenceBetweenLastTwoValues()
         {

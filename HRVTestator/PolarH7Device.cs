@@ -125,7 +125,6 @@ namespace HRVTestator
                             {
                                 mainActivity.SendBroadcast(intent);
                             }
-
                         };
 
                     characteristic.StartUpdates();

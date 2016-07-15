@@ -9,8 +9,7 @@ namespace HRVTestator
     [BroadcastReceiver(Enabled = true)]
     [IntentFilter(new[] { "HEARD_RATE_UPDATE" })]
     public class HeartRateReceiver : BroadcastReceiver
-    {
-        
+    {      
         private static MainActivity mainActivity;
         private static HRV hrv;
 

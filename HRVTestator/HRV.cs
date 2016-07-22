@@ -26,6 +26,8 @@ namespace HRVTestator
 
             Measurement.EnumPhase currentPhase = Measurement.EnumPhase.Pre;
 
+            int lastRRValueForPrint = 0;
+
             foreach (Measurement mesure in mesures)
             {
                 if (mesure.HRV == 0)
@@ -39,8 +41,6 @@ namespace HRVTestator
                     currentPhase = mesure.Phase;
                 }
 
-                int lastRRValueForPrint = mesure.RR;
-
                 if (mesure.IsValid)
                 {
                     sb.AppendLine(mesure.DateTime + "   ; " + mesure.RR + "    ; " + mesure.HRV);
@@ -49,6 +49,8 @@ namespace HRVTestator
                 {
                     sb.AppendLine(mesure.DateTime + ", Ungüliger Wert: Letzter Wert " + lastRRValueForPrint + " Aktueller Wert: " + mesure.RR);
                 }
+
+                lastRRValueForPrint = mesure.RR;
             }
 
             return sb.ToString();
@@ -78,17 +80,21 @@ namespace HRVTestator
             List<Measurement> tempMesures = new List<Measurement>();
             foreach (int rrValue in rrValues)
             {
-                lastRRValue = rrValue;
                 bool isValid = IsValueValid(rrValue);
+                
                 tempMesures.Add(new Measurement
                 {
                     DateTime = DateTime.UtcNow,
                     IsValid = isValid,
                     RR = rrValue,
-                    HRV = isValid ? CalulateHRV(rrValue) : default(int),
+                    HRV = CalulateHRV(rrValue),
                     Phase = currentPhase,
                 });
-
+                if (!isValid)
+                {
+                    string xs = "";
+                }
+                lastRRValue = rrValue;
                 mesures.AddRange(tempMesures);
             }
 
@@ -102,7 +108,7 @@ namespace HRVTestator
 
         public bool IsValueValid(int actualValue)
         {
-            return !(lastRRValue - actualValue > 100 || actualValue - lastRRValue > 100);
+            return !(actualValue - lastRRValue  > 100 || actualValue - lastRRValue < -100);
         }
 
         private float CalulateHRV(int rrValue)

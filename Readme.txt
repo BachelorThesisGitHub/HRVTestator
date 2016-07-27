@@ -1,4 +1,4 @@
-10.6 Technische Dokumentation
+10.6 	Technische Dokumentation
 10.6.1	GitHub
 Gmail & GitHub Account: bachelorthesisgithub@gmail.com
 Gmail & GitHub Passwort: ffhs2016

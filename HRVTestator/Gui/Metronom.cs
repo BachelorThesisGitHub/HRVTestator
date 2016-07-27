@@ -3,6 +3,9 @@ using System.Threading;
 
 namespace HRVTestator.Gui
 {
+    /// <summary>
+    /// Die Klasse <see cref="Metronom"/> ist verantwortliche für die graphische Darstellung der Atmung des Probanden. 
+    /// </summary>
     public class Metronom
     {
         private enum trendOfMetronom { growing, shrinking }
@@ -14,6 +17,10 @@ namespace HRVTestator.Gui
         private int lastRadiusOfMetronomCircle;
         private bool hasMetronomStarted = false;
 
+        /// <summary>
+        /// Instanziert eine neue Instanz der Klasse <see cref="Metronom"/>.
+        /// </summary>
+        /// <param name="invalidate">Ein Instanz des IInvalidatable-Interfaces.</param>
         public Metronom(IInvalidatable invalidate)
         {
             this.invalidate = invalidate;

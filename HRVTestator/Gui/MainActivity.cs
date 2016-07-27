@@ -6,6 +6,11 @@ using System;
 
 namespace HRVTestator.Gui
 {
+    /// <summary>
+    /// Die Klasse <see cref="MainActivity"/> ist der Gui-Kontainer der gesammten App. 
+    /// Die App besteht aus lediglich einer Activity.
+    /// </summary>
+    /// <seealso cref="HRVTestator.Gui.ActivityWithMenu" />
     [Activity(Label = "Herzratenvariabilität", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : ActivityWithMenu
     {
@@ -31,6 +36,10 @@ namespace HRVTestator.Gui
             actionBar.Show();      
         }
 
+        /// <summary>
+        /// Updatet die HeartRateView.
+        /// </summary>
+        /// <param name="hrvValue">Der HRV-Wert</param>
         public void UpdateHeartRateView(float hrvValue)
         {
             if (hrv.IsAmountOfValuesToCalculateHRVSet() && showValues)
@@ -46,6 +55,9 @@ namespace HRVTestator.Gui
             analysisPlanner.Start();
         }
 
+        /// <summary>
+        /// Zeigt die Symbole an.
+        /// </summary>
         public void ShowSymbols()
         {
             lineHeartRateView.ClearHeartRateView();
@@ -53,16 +65,25 @@ namespace HRVTestator.Gui
             SetView(Views.Line);        
         }
 
+        /// <summary>
+        /// Löscht die zu zeichnenden Werte.
+        /// </summary>
         public void DeleteValuesToDraw()
         {
             lineHeartRateView.ClearHeartRateView();
         }
 
+        /// <summary>
+        /// Stoppt die Analyse.
+        /// </summary>
         public void StopAnalysis()
         {
             showValues = false;
         }
 
+        /// <summary>
+        /// Versteckt die zu Symbole.
+        /// </summary>
         public void HideSymbols()
         {
             SetView(Views.Empty);

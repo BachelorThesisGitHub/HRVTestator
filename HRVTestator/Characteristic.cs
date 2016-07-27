@@ -2,8 +2,16 @@ using System;
 
 namespace HRVTestator
 {
+    /// <summary>
+    /// Die Klasse <see cref="Characteristic"/> ist verantwortlich für das Auslesen der RR Values aus dem vom Polar Sensor gesendeten Byte[].
+    /// </summary>
     public class Characteristic
     {
+        /// <summary>
+        /// Extrahiert den RR-Interval-Werte.
+        /// </summary>
+        /// <param name="data">Die Daten die vom Polar Sensor gesendet werden.</param>
+        /// <returns>Die RR-Werte</returns>
         public int[] ExtractRRInterval(byte[] data) //BluetoothGattCharacteristic characteristic)
         {
             this.SetValue(data);

@@ -3,7 +3,11 @@ using Android.Widget;
 using HRVTestator.Gui;
 
 namespace HRVTestator
-{ 
+{
+    /// <summary>
+    /// Die Klasse <see cref="AnalysisPlaner"/> ist verantwortlich für die Durchführung eines Experimentes.
+    /// Er startet dabei die verschiedenen Phasen des Experimentes. 
+    /// </summary>
     public class AnalysisPlaner
     {
         private MainActivity mainActivity;
@@ -13,12 +17,20 @@ namespace HRVTestator
         private int startPhase3 = 900000; //45000;
         private HRV hrv;
 
+        /// <summary>
+        /// Initialisiert eine neue Instanz der Klasse <see cref="AnalysisPlaner"/>.
+        /// </summary>
+        /// <param name="mainActivty">Eine MainActivty instance.</param>
+        /// <param name="hrv">Eine HRV instance.</param>
         public AnalysisPlaner(MainActivity mainActivty, HRV hrv)
         {
             this.mainActivity = mainActivty;
             this.hrv = hrv;
         }
 
+        /// <summary>
+        /// Startet das Experiment.
+        /// </summary>
         public void Start()
         {
             // Hide Symbols.

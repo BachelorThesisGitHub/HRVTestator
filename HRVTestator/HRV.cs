@@ -5,6 +5,9 @@ using System.Text;
 
 namespace HRVTestator
 {
+    /// <summary>
+    /// Die Klasse <see cref="HRV"/> ist verantwortlich für das Kapseln der Messresultate und aufarbeiten der Daten für das Email.
+    /// </summary>
     public class HRV
     {
         private List<Measurement> mesures = new List<Measurement>();
@@ -13,11 +16,19 @@ namespace HRVTestator
         private int lastRRValue = 0;
         private Measurement.EnumPhase currentPhase;
 
+        /// <summary>
+        /// Sets the phase.
+        /// </summary>
+        /// <param name="phase">Die aktuelle Phase. (Pre, Exp, Post)</param>
         public void SetPhase(Measurement.EnumPhase phase)
         {
             currentPhase = phase;
         }
 
+        /// <summary>
+        /// Gibt die erhalten Messresultate formatiert zurück für das Versenden per Email.
+        /// </summary>
+        /// <returns>Die formatierten Messresultate.</returns>
         public string GetFormatedMesurement()
         {
             var sb = new StringBuilder();
@@ -70,11 +81,20 @@ namespace HRVTestator
             throw new InvalidOperationException("Invalid EnumPhase value: " + phase);
         }
 
+        /// <summary>
+        /// Setzt den UV-Wert.
+        /// </summary>
+        /// <param name="amountOfValuesToCalculateHRV">The amount of values to calculate HRV.</param>
         public void SetAmountOfValuesToCalutateHRV(int amountOfValuesToCalculateHRV)
         {
             this.amountOfValuesToCalculateHRV = amountOfValuesToCalculateHRV;
         }
 
+        /// <summary>
+        /// Setzt und validiert die vom Polar Sensor empfangenen RR-Werte.
+        /// </summary>
+        /// <param name="rrValues">Die RR Werte.</param>
+        /// <returns>Eine Liste aller gültigen RR Werte</returns>
         public IEnumerable<Measurement> SetRR(int[] rrValues)
         {
             List<Measurement> tempMesures = new List<Measurement>();
@@ -101,12 +121,18 @@ namespace HRVTestator
             return tempMesures.Where(x => x.IsValid);
         }
 
+        /// <summary>
+        /// Prüft ob der HRV-Wert gesetzt ist.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> Wenn der HRV-Wert gesetzt ist; sonst, <c>false</c>.
+        /// </returns>
         public bool IsAmountOfValuesToCalculateHRVSet()
         {
             return amountOfValuesToCalculateHRV != 0;
         }
 
-        public bool IsValueValid(int actualValue)
+        private bool IsValueValid(int actualValue)
         {
             return !(actualValue - lastRRValue  > 100 || actualValue - lastRRValue < -100);
         }

@@ -6,12 +6,21 @@ using System.Linq;
 
 namespace HRVTestator.Gui
 {
+    /// <summary>
+    /// Die Abstrakte Klasse <see cref="AbstractHeartRateView"/> dient als Basisklasse für die verschiedenen Darstellungsformen der Messresultate.
+    /// </summary>
+    /// <seealso cref="Android.Views.View" />
+    /// <seealso cref="HRVTestator.Gui.IInvalidatable" />
     public abstract class AbstractHeartRateView : View, IInvalidatable
     {
         private List<float> mesuredHeartRate = new List<float>();
         private List<int> stackOfNewValues = new List<int>();
         private Metronom metronom;
 
+        /// <summary>
+        /// Instanziert eine neue Instanz der Klasse <see cref="AbstractHeartRateView"/>.
+        /// </summary>
+        /// <param name="context">Der Kontext.</param>
         public AbstractHeartRateView(Context context) : base(context)
         {
             metronom = new Metronom(this);
@@ -29,6 +38,10 @@ namespace HRVTestator.Gui
             base.OnDraw(canvas); // ????
         }
 
+        /// <summary>
+        /// Invalidatet die gesamte View.
+        /// Dies bewirkt, dass die View neu erstellt und angezeigt wird.
+        /// </summary>
         public void Invalidate()
         {
             PostInvalidate();
@@ -67,11 +80,17 @@ namespace HRVTestator.Gui
             }
         }
 
+        /// <summary>
+        /// Gibt die Anzahl der Messungen zurück.
+        /// </summary>
         public int CountOfValuesInStock()
         {
             return mesuredHeartRate.Count;
         }
 
+        /// <summary>
+        /// Setzt ein neuen HRV-Wert.
+        /// </summary>
         public void ReceivedNewHRVValue()
         {
             stackOfNewValues.Add(1);
@@ -85,16 +104,29 @@ namespace HRVTestator.Gui
             }
         }
 
+        /// <summary>
+        /// Setzt ein neuen Heart-Rate-Wert.
+        /// </summary>
+        /// <param name="heartRate">The heart rate.</param>
         public void UpdateHeartRate(float heartRate)
         {
             mesuredHeartRate.Add(heartRate);
         }
 
+        /// <summary>
+        /// Bereinigt die HeartRateView.
+        /// </summary>
         public void ClearHeartRateView()
         {
             mesuredHeartRate.Clear();
         }
 
+        /// <summary>
+        /// Prüft ob genau eine Messung existiert.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> falls genau eine Messung existiert; sonst, <c>false</c>.
+        /// </returns>
         public bool IsFirstMesuredHeartRate()
         {
             return mesuredHeartRate.Count == 1;

@@ -6,11 +6,15 @@ using Android.Widget;
 
 namespace HRVTestator.Gui
 {
+    /// <summary>
+    /// Die Abstrakte Klasse <see cref="ActivityWithMenu"/> dient als Basisklasse für die verschiedenen Activities der APP.
+    /// </summary>
+    /// <seealso cref="Android.App.Activity" />
     public abstract class ActivityWithMenu : Activity
     {
         public enum Views { Line, Empty, Start }
         private Views currentView = Views.Empty;
-        private IMenu optionsMenu; //Da das Optionmenu nicht unmittelbar geladen wird, muss es als Klassenvariable zwischengespeichert werden.
+        private IMenu optionsMenu; // Da das Optionmenu nicht unmittelbar geladen wird, muss es als Klassenvariable zwischengespeichert werden.
         protected HRV hrv = new HRV();
 
         protected bool showValues = false;
@@ -19,6 +23,9 @@ namespace HRVTestator.Gui
 
         protected abstract void StartAnalysis();
 
+        /// <summary>
+        /// Initilisiert die ActionBar der Activity
+        /// </summary>
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             optionsMenu = menu;
@@ -75,6 +82,9 @@ namespace HRVTestator.Gui
             SetView(currentView);
         }
 
+        /// <summary>
+        /// Wird aufgerufen sobald in der ActionBar eine Auswahl getroffen wurde.
+        /// </summary>
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             SetView((Views)item.ItemId);

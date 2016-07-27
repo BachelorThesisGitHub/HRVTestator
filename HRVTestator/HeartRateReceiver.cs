@@ -6,6 +6,13 @@ using System.Collections.Generic;
 
 namespace HRVTestator
 {
+    /// <summary>
+    /// Die Klasse <see cref="HeartRateReceiver"/> ist verantwortlich für das Empfangen der Daten vom Sensor.
+    /// Dies ist nötig da die Daten in der Klasse <see cref="PolarH7Device"/> nicht auf dem Main-Thread empfangen werden, 
+    /// aber für die Darstellung den MainThread benötigen. 
+    /// Hinweis: Die Klasse <see cref="HeartRateReceiver"/> ist im Manifest.xml als BroadcastReceiver registiert.
+    /// </summary>
+    /// <seealso cref="Android.Content.BroadcastReceiver" />
     [BroadcastReceiver(Enabled = true)]
     [IntentFilter(new[] { "HEARD_RATE_UPDATE" })]
     public class HeartRateReceiver : BroadcastReceiver
@@ -13,14 +20,28 @@ namespace HRVTestator
         private static MainActivity mainActivity;
         private static HRV hrv;
 
-        public HeartRateReceiver(){ } //Strange but Android call also once the default constructer, dont know why:
+        /// <summary>
+        /// Initialisiert eine neue Instanz der Klasse <see cref="HeartRateReceiver"/>.
+        /// Hinweis: Ein leerer Konstuktor wird vom Android System benötigt.
+        /// </summary>
+        public HeartRateReceiver(){ }
 
+        /// <summary>
+        /// Initialisiert eine neue Instanz der Klasse <see cref="HeartRateReceiver"/>.
+        /// </summary>
+        /// <param name="mainActivity">Die MainActivity.</param>
+        /// <param name="hrv">Der HRV.</param>
         public HeartRateReceiver(MainActivity mainActivity, HRV hrv)
         {
             HeartRateReceiver.mainActivity = mainActivity;
             HeartRateReceiver.hrv = hrv;
         }
 
+        /// <summary>
+        /// Die Methode wird aufgerufen wenn der BroadcastReceiver einen entsprächenden Broadcast-Intent empfängt.
+        /// </summary>
+        /// <param name="context">Der Kontext in welchem der Receiver ausgeführt wird.</param>
+        /// <param name="intent">Der empfangene Intent.</param>
         public override void OnReceive(Context context, Intent intent)
         {
             try

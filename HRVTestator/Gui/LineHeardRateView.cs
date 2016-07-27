@@ -3,9 +3,12 @@ using Android.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace HRVTestator.Gui
 {
+    /// <summary>
+    /// Die Klasse <see cref="LineHeartRateView"/> ist verantwortliche für die Anzeige der empfangenen Messresultate. 
+    /// </summary>
+    /// <seealso cref="HRVTestator.Gui.AbstractHeartRateView" />
     public class LineHeartRateView : AbstractHeartRateView
     {
         private const float lineLenght = 10;
@@ -15,6 +18,9 @@ namespace HRVTestator.Gui
         private const float scaleFactor = 10;
         public bool showLine = false;
 
+        /// <summary>
+        /// Instanziert eine neue Instanz der Klasse <see cref="LineHeartRateView"/>.
+        /// </summary>
         public LineHeartRateView(Context context) : base(context) { }
 
         protected override void OnDraw(Canvas canvas)
@@ -60,11 +66,6 @@ namespace HRVTestator.Gui
                 }
             }
         }
-
-        //public void ClearPoints()
-        //{
-        //    points.Clear();
-        //}
 
         private float GetDifferenceBetweenLastTwoValues()
         {

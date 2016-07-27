@@ -6,6 +6,10 @@ using HRVTestator.Gui;
 
 namespace HRVTestator
 {
+    /// <summary>
+    /// Die Klasse <see cref="PolarH7Device"/> ist verantwortlich für das Setup der Kommunikation mit dem Polar H7 Device und das Empfangen 
+    /// und Weiterleiten der Werte mittels des HeartRateReceivers.
+    /// </summary>
     public class PolarH7Device : IDisposable
     {
         private const string DEVICE_NAME = "Polar";
@@ -16,11 +20,19 @@ namespace HRVTestator
         private IService heartRateService;
         private MainActivity mainActivity;
 
+        /// <summary>
+        /// Instanziert eine neue Instanz der Klasse <see cref="PolarH7Device"/>.
+        /// </summary>
+        /// <param name="mainActivity">Die MainActivity.</param>
         public PolarH7Device(MainActivity mainActivity)
         {
             this.mainActivity = mainActivity;
         }
 
+        /// <summary>
+        /// Started die Suche nach einem Bluetooth Polar H7 Device.
+        /// Sobald eine Gerät gefunden wird und Daten empfangen werden, werde diese mittels des HeartRateReceivers (BroadcastReceiver) weitergeleitet.
+        /// </summary>
         public void Start() 
         {   
             adapter = new Adapter();
@@ -132,6 +144,9 @@ namespace HRVTestator
             }
         }
 
+        /// <summary>
+        /// Gibt allfällige Resourcen frei.
+        /// </summary>
         public void Dispose()
         {
             if (adapter != null)

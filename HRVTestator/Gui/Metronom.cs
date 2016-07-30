@@ -4,7 +4,8 @@ using System.Threading;
 namespace HRVTestator.Gui
 {
     /// <summary>
-    /// Die Klasse <see cref="Metronom"/> ist verantwortliche für die graphische Darstellung der Atmung des Probanden. 
+    /// Die Klasse <see cref="Metronom"/> ist verantwortliche für die graphische Darstellung des Metronoms, mit Hilfe von diesem die Versuchspersonen Ihre Atmung kontrollieren können.
+    //
     /// </summary>
     public class Metronom
     {

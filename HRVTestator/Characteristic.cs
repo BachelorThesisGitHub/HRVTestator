@@ -3,7 +3,7 @@ using System;
 namespace HRVTestator
 {
     /// <summary>
-    /// Die Klasse <see cref="Characteristic"/> ist verantwortlich für das Auslesen der RR Values aus dem vom Polar Sensor gesendeten Byte[].
+    /// Die Klasse <see cref="Characteristic"/> ist verantwortlich für das Auslesen der RR Values aus dem vom Polar Sensor gesendeten Byte[]. Die Klasse wurde grösstenteils von https://github.com/oerjanti/BLE-Heart-rate-variability-demo/ übernommen. 
     /// </summary>
     public class Characteristic
     {

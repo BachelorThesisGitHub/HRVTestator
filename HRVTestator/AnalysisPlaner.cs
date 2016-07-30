@@ -5,8 +5,8 @@ using HRVTestator.Gui;
 namespace HRVTestator
 {
     /// <summary>
-    /// Die Klasse <see cref="AnalysisPlaner"/> ist verantwortlich für die Durchführung eines Experimentes.
-    /// Er startet dabei die verschiedenen Phasen des Experimentes. 
+    /// Die Klasse <see cref="AnalysisPlaner"/> ist verantwortlich für die Durchführung einer Messung.
+    /// Sie startet dabei die verschiedenen Phasen der Messung (Vorher Messung, Experimentalphase und Nachher Messung). 
     /// </summary>
     public class AnalysisPlaner
     {

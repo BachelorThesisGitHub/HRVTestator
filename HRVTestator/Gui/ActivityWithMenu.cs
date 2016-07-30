@@ -7,7 +7,7 @@ using Android.Widget;
 namespace HRVTestator.Gui
 {
     /// <summary>
-    /// Die Abstrakte Klasse <see cref="ActivityWithMenu"/> dient als Basisklasse für die verschiedenen Activities der APP.
+    /// Die Abstrakte Klasse <see cref="ActivityWithMenu"/> dient als Basisklasse für die verschiedenen Activities der APP. Sie steuert die Menüfunktionen, sowie der Eingabe des Parameters.
     /// </summary>
     /// <seealso cref="Android.App.Activity" />
     public abstract class ActivityWithMenu : Activity

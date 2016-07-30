@@ -7,7 +7,7 @@ using System.Linq;
 namespace HRVTestator.Gui
 {
     /// <summary>
-    /// Die Abstrakte Klasse <see cref="AbstractHeartRateView"/> dient als Basisklasse für die verschiedenen Darstellungsformen der Messresultate.
+    /// Die Abstrakte Klasse <see cref="AbstractHeartRateView"/> dient als Basisklasse für die verschiedenen Darstellungsformen der Messresultate respektive verschiedenen Phasen bei einer Messung.
     /// </summary>
     /// <seealso cref="Android.Views.View" />
     /// <seealso cref="HRVTestator.Gui.IInvalidatable" />

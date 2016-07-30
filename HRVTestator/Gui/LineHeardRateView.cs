@@ -6,7 +6,7 @@ using System.Linq;
 namespace HRVTestator.Gui
 {
     /// <summary>
-    /// Die Klasse <see cref="LineHeartRateView"/> ist verantwortliche für die Anzeige der empfangenen Messresultate. 
+    /// Die Klasse <see cref="LineHeartRateView"/> ist verantwortlich für die Anzeige der HRV-Werte. 
     /// </summary>
     /// <seealso cref="HRVTestator.Gui.AbstractHeartRateView" />
     public class LineHeartRateView : AbstractHeartRateView

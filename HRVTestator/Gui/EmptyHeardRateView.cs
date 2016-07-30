@@ -4,7 +4,7 @@ using Android.Graphics;
 namespace HRVTestator.Gui
 {
     /// <summary>
-    /// Die Klasse <see cref="EmptyHeartRateView"/> zeigt einen leere View an ohne Messresultate. 
+    /// Die Klasse <see cref="EmptyHeartRateView"/> zeigt einen leere View mit dem Metronom an ohne Messresultate. 
     /// </summary>
     /// <seealso cref="HRVTestator.Gui.AbstractHeartRateView" />
     public class EmptyHeartRateView : AbstractHeartRateView

@@ -6,7 +6,7 @@ using System.Text;
 namespace HRVTestator
 {
     /// <summary>
-    /// Die Klasse <see cref="HRV"/> ist verantwortlich für das Kapseln der Messresultate und aufarbeiten der Daten für das Email.
+    /// Die Klasse <see cref="HRV"/> ist verantwortlich für das Kapseln der Messresultate und das Aufarbeiten der Daten für das Email.
     /// </summary>
     public class HRV
     {

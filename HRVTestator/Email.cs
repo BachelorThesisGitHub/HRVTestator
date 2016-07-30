@@ -3,8 +3,8 @@ using Android.Content;
 namespace HRVTestator
 {
     /// <summary>
-    /// Die Klasse <see cref="Email"/> ist verantwortlich für zum Senden des EMails der Resultate.
-    /// Hinweis: Der Empfänger ist Hardcodiert. Für die weitere Verwendung des Tool ist ein Outsourcing in ein Konfig File zu bevorzugen.
+    /// Die Klasse <see cref="Email"/> ist verantwortlich für das Senden des EMails der Messwerte.
+    /// Hinweis: Der Empfänger ist hardcodiert. Für eine weitere Verwendung des Tool müsste dies in ein Konfig File ausgelagert werden.
     /// </summary>
     public static class Email
     {

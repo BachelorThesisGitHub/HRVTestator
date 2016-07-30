@@ -3,7 +3,7 @@ using System;
 namespace HRVTestator
 {
     /// <summary>
-    /// Die Klasse <see cref="Measurement"/> ist ein Data-transver-Object und ist verantwortlich für das Kapseln eines Messresultates.
+    /// Die Klasse <see cref="Measurement"/> ist ein Data-transfer-Object und ist verantwortlich für das Kapseln eines Messresultates.
     /// </summary>
     public class Measurement
     {
